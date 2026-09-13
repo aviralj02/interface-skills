@@ -1,0 +1,299 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/schibsted-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+
+@theme {
+  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --color-paper: #fcfcfb;
+  --color-surface: #ffffff;
+  --color-well: #f2f3f4;
+  --color-ink: #111315;
+  --color-ink-2: #4c5258;
+  --color-ink-3: #686e75;
+  --color-line: #e4e6e9;
+  --color-line-strong: #cfd3d7;
+  --color-accent: #2f5fe0;
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #eaf0ff;
+  --color-danger: #b8321f;
+  --color-danger-soft: #fdeeeb;
+  --color-warn: #975800;
+  --color-warn-soft: #fdf3e2;
+  --color-ok: #1d7446;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #0e1012;
+    --color-surface: #1a1d21;
+    --color-well: #141619;
+    --color-ink: #eceef0;
+    --color-ink-2: #adb3b9;
+    --color-ink-3: #8b9299;
+    --color-line: #24282c;
+    --color-line-strong: #343a40;
+    --color-accent: #86a4ff;
+    --color-accent-ink: #0b1020;
+    --color-accent-soft: #19223b;
+    --color-danger: #ff8a78;
+    --color-danger-soft: #2a1614;
+    --color-warn: #f0b653;
+    --color-warn-soft: #2a2010;
+    --color-ok: #62d49c;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'ss01' on;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 24%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  code,
+  kbd,
+  pre {
+    font-variant-ligatures: none;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+}
+
+@layer components {
+  /* Specimen sheet: the Happy path / Every state switch is the page's one authored motion. */
+  .specimen-layer {
+    transition:
+      opacity 520ms var(--ease-out-expo),
+      filter 520ms var(--ease-out-expo),
+      transform 520ms var(--ease-out-expo);
+  }
+  .specimen-layer[data-shown='false'] {
+    opacity: 0;
+    filter: blur(6px);
+    transform: scale(0.97);
+    pointer-events: none;
+  }
+  .tile[data-shown='false'] .state-label {
+    color: var(--color-ink-3);
+    text-decoration: line-through;
+    text-decoration-color: var(--color-line-strong);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .specimen-layer {
+      transition: opacity 150ms linear;
+    }
+    .specimen-layer[data-shown='false'] {
+      filter: none;
+      transform: none;
+    }
+  }
+  /* No JavaScript, or reduced motion before the effect runs: show every state. */
+  html:not([data-js]) .specimens .layer-real,
+  html:not([data-js]) .specimens .tile .state-label {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  html:not([data-js]) .specimens .layer-unhandled {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .specimens[data-autoplay='pending'] .layer-real {
+      opacity: 1;
+    }
+    .specimens[data-autoplay='pending'] .layer-unhandled {
+      opacity: 0;
+    }
+  }
+  @media (hover: hover) {
+    .sheet:has(.tile:is(:hover, :focus-within)) .tile:not(:is(:hover, :focus-within)) {
+      opacity: 0.45;
+      filter: saturate(0.4);
+    }
+    /* In Happy path view, hovering a gap previews the state the skill would design. */
+    .tile[data-shown='false']:is(:hover, :focus-within) .layer-real {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition-delay: 0ms !important;
+    }
+    .tile[data-shown='false']:is(:hover, :focus-within) .layer-unhandled {
+      opacity: 0;
+      filter: blur(6px);
+      transform: scale(0.97);
+      transition-delay: 0ms !important;
+    }
+    .tile[data-shown='false']:is(:hover, :focus-within) .state-label {
+      color: var(--color-ink);
+      text-decoration-color: transparent;
+    }
+  }
+  .state-label {
+    transition:
+      color 200ms ease,
+      text-decoration-color 200ms ease;
+  }
+
+  /* Install block: a short settle when switching tabs, and a selection-colored highlight on what was copied. */
+  .swap-in {
+    animation: swap-in 260ms var(--ease-out-expo);
+  }
+  .copied-flash {
+    border-radius: 3px;
+    animation: copied-flash 900ms var(--ease-out-expo);
+  }
+  @keyframes swap-in {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+  }
+  @keyframes copied-flash {
+    0%,
+    25% {
+      background-color: color-mix(in oklab, var(--color-accent) 22%, transparent);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swap-in {
+      animation-name: fade-in;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Text links: an underline that draws in from the left. */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition:
+      background-size 320ms var(--ease-out-expo),
+      color 150ms ease;
+  }
+  .link-draw:is(:hover, :focus-visible) {
+    background-size: 100% 1px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .link-draw {
+      transition: color 150ms ease;
+    }
+  }
+
+  /* Rendered SKILL.md */
+  .doc {
+    @apply text-ink-2 text-[1.0625rem] leading-[1.7];
+    max-width: 72ch;
+  }
+  .doc > * + * {
+    margin-top: 1.1em;
+  }
+  .doc h2 {
+    @apply text-ink font-semibold tracking-[-0.015em] text-[1.625rem] leading-tight;
+    margin-top: 3.25rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .doc h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .doc h3 {
+    @apply text-ink font-semibold text-[1.1875rem] leading-snug;
+    margin-top: 2.25rem;
+  }
+  .doc h2 + *,
+  .doc h3 + * {
+    margin-top: 0.75em;
+  }
+  .doc strong {
+    @apply text-ink font-semibold;
+  }
+  .doc a {
+    @apply text-ink underline decoration-line-strong hover:decoration-accent;
+  }
+  .doc ul,
+  .doc ol {
+    padding-left: 1.25em;
+  }
+  .doc ul {
+    list-style: disc;
+  }
+  .doc ol {
+    list-style: decimal;
+  }
+  .doc li + li {
+    margin-top: 0.35em;
+  }
+  .doc li::marker {
+    color: var(--color-ink-3);
+  }
+  .doc li > input[type='checkbox'] {
+    @apply mr-2 align-[-0.1em] accent-accent;
+  }
+  .doc ul:has(> li > input[type='checkbox']) {
+    list-style: none;
+    padding-left: 0.25em;
+  }
+  .doc blockquote {
+    @apply text-ink;
+    padding-left: 1em;
+    border-left: 1px solid var(--color-line-strong);
+  }
+  .doc :not(pre) > code {
+    @apply font-mono text-ink bg-well rounded-[5px] px-[0.35em] py-[0.1em] text-[0.86em];
+    border: 1px solid var(--color-line);
+  }
+  .doc :not(pre) > a > code {
+    @apply text-accent;
+  }
+  .doc hr {
+    border-color: var(--color-line);
+  }
+}
