@@ -1,0 +1,13 @@
+{
+  "name": "interface-skills",
+  "version": "0.1.0",
+  "description": "Practical interface-behavior skills: states, flows, async actions, destructive actions, focus, content resilience, responsive behavior, and feature completeness.",
+  "author": {
+    "name": "Aviral Jain",
+    "url": "https://github.com/aviralj02"
+  },
+  "homepage": "https://github.com/aviralj02/interface-skills",
+  "repository": "https://github.com/aviralj02/interface-skills",
+  "license": "MIT",
+  "keywords": ["ux", "interface", "states", "accessibility", "design-engineering", "agent-skills"]
+}

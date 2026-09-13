@@ -1,0 +1,27 @@
+{
+  "name": "interface-skills",
+  "owner": {
+    "name": "Aviral Jain",
+    "url": "https://github.com/aviralj02"
+  },
+  "metadata": {
+    "description": "Practical interface-behavior skills for developers and AI agents.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "interface-skills",
+      "source": "./",
+      "description": "Practical interface-behavior skills for developers and AI agents.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Aviral Jain",
+        "url": "https://github.com/aviralj02"
+      },
+      "homepage": "https://github.com/aviralj02/interface-skills",
+      "repository": "https://github.com/aviralj02/interface-skills",
+      "license": "MIT",
+      "category": "design"
+    }
+  ]
+}
