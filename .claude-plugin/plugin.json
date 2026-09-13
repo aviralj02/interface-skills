@@ -9,5 +9,12 @@
   "homepage": "https://github.com/aviralj02/interface-skills",
   "repository": "https://github.com/aviralj02/interface-skills",
   "license": "MIT",
-  "keywords": ["ux", "interface", "states", "accessibility", "design-engineering", "agent-skills"]
+  "keywords": [
+    "ux",
+    "interface",
+    "states",
+    "accessibility",
+    "design-engineering",
+    "agent-skills"
+  ]
 }
