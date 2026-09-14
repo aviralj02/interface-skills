@@ -6,7 +6,7 @@ web
 
 ## Stack
 
-React + TypeScript + Vite + Tailwind CSS + lucide-react (user-specified). The site lives in `site/` inside this repo and reads `skills/*/SKILL.md` at build time. Every route is pre-rendered to static HTML so it works on any host; the deploy target is undecided.
+React + TypeScript + Vite + Tailwind CSS + lucide-react (user-specified). The site lives in `site/` inside this repo and reads `skills/*/SKILL.md` at build time. Every route is pre-rendered to static HTML so it works on any host. Deployed at `skills.heyaviral.com` (a CNAME under the user's personal domain), host TBD (candidates: Vercel, Netlify, GitHub Pages).
 
 ## Users
 

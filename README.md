@@ -2,6 +2,8 @@
 
 > UI patterns teach you how interfaces look. Interface Skills teaches you how they behave.
 
+**[skills.heyaviral.com](https://skills.heyaviral.com)** — browse every skill, or install directly with `npx skills add aviralj02/interface-skills`.
+
 A collection of agent skills for building interfaces that hold up once people actually use them. The skills cover states, failures, flows, structure, content, and recovery.
 
 Each skill is a `SKILL.md` file that follows the open [Agent Skills](https://agentskills.io) format. They work with Claude Code, Codex, Cursor, and any other agent that loads skills. You can also read them as checklists yourself.
