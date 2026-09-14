@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
+import { SITE_URL } from '../content/site'
 import { headFor } from '../head'
 
 /**
@@ -12,7 +13,25 @@ export function RouteEffects() {
   const first = useRef(true)
 
   useEffect(() => {
-    document.title = headFor(pathname).title
+    const head = headFor(pathname)
+    document.title = head.title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', head.description)
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', head.index ? 'index, follow' : 'noindex, follow')
+    // Canonical and JSON-LD are correct for the URL the visitor actually landed on (each route is
+    // its own static file); this only needs to run if a client-side nav then changes the path.
+    // Not-indexed pages (404) carry no canonical at all, matching the prerendered HTML. The element
+    // is recreated rather than left missing, so a later nav back to an indexed page always has one.
+    let canonical = document.querySelector('link[rel="canonical"]')
+    if (head.index) {
+      if (!canonical) {
+        canonical = document.createElement('link')
+        canonical.setAttribute('rel', 'canonical')
+        document.head.appendChild(canonical)
+      }
+      canonical.setAttribute('href', `${SITE_URL}${head.path}`)
+    } else {
+      canonical?.remove()
+    }
 
     if (hash) {
       const target = document.getElementById(decodeURIComponent(hash.slice(1)))

@@ -2,6 +2,9 @@ export const REPO = 'aviralj02/interface-skills'
 export const REPO_URL = `https://github.com/${REPO}`
 export const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`
 export const AUTHOR = { name: 'Aviral Jain', url: 'https://github.com/aviralj02', site: 'https://heyaviral.com' }
+/** Canonical origin, no trailing slash. Used for canonical links, OG/Twitter tags, JSON-LD, and the sitemap. */
+export const SITE_URL = 'https://skills.heyaviral.com'
+export const SITE_NAME = 'Interface Skills'
 
 export type InstallMethod = {
   id: string
