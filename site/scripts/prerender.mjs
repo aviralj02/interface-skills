@@ -10,7 +10,7 @@ const dist = join(root, 'dist')
 const serverDir = join(root, 'dist-server')
 
 const template = readFileSync(join(dist, 'index.html'), 'utf8')
-const { render, routes, SKILLS, GROUPS, SITE_URL, SITE_NAME, REPO_URL, AUTHOR } = await import(
+const { render, routes, demoRoutes, SKILLS, GROUPS, SITE_URL, SITE_NAME, REPO_URL, AUTHOR } = await import(
   pathToFileURL(join(serverDir, 'entry-server.js')).href
 )
 
@@ -54,11 +54,11 @@ function page(url) {
   return template.replace('<!--app-head-->', headTags(head)).replace('<!--app-html-->', html)
 }
 
-for (const url of routes) {
+for (const url of [...routes, ...demoRoutes]) {
   const file = url === '/' ? join(dist, 'index.html') : join(dist, url, 'index.html')
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, page(url))
-  console.log(`  ${url}`)
+  console.log(`  ${url}${demoRoutes.includes(url) ? ' (noindex, not in sitemap)' : ''}`)
 }
 
 writeFileSync(join(dist, '404.html'), page('/404'))
@@ -118,4 +118,4 @@ writeFileSync(join(dist, 'llms-full.txt'), `# ${SITE_NAME} — full content\n\n$
 console.log('  /llms-full.txt')
 
 rmSync(serverDir, { recursive: true, force: true })
-console.log(`\nPre-rendered ${routes.length + 1} pages, ${SKILLS.length} markdown mirrors, sitemap, and llms.txt.`)
+console.log(`\nPre-rendered ${routes.length + demoRoutes.length + 1} pages, ${SKILLS.length} markdown mirrors, sitemap, and llms.txt.`)

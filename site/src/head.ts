@@ -1,5 +1,6 @@
 import { AUTHOR, REPO_URL, SITE_NAME, SITE_URL } from './content/site'
 import { getSkill, GROUPS, SKILLS } from './content/skills'
+import { DEMOS } from './demos/registry'
 
 const HOME_DESCRIPTION = `${SKILLS.length} agent skills for how interfaces behave: states, failures, flows, focus, and recovery — not just how they look. Each skill produces a concrete artifact. Install with npx skills or as a Claude Code plugin.`
 
@@ -11,7 +12,7 @@ type Head = {
   /** Canonical path, e.g. "/" or "/skills/interface-states" — the prerenderer resolves it against SITE_URL. */
   path: string
   type: 'website' | 'article'
-  /** false only for pages that should not be indexed (404). */
+  /** false only for pages that should not be indexed (404, demos). */
   index: boolean
   jsonLd: object[]
 }
@@ -67,6 +68,12 @@ export function headFor(pathname: string): Head {
       }
     }
     return { title: `Skill not found · ${SITE_NAME}`, description: HOME_DESCRIPTION, path: pathname, type: 'website', index: false, jsonLd: [] }
+  }
+
+  // Demos are shareable but not search landing pages: noindex, and left out of the sitemap.
+  const demo = DEMOS.find((d) => d.path === pathname.replace(/\/$/, ''))
+  if (demo) {
+    return { title: `${demo.title} · ${SITE_NAME}`, description: demo.description, path: demo.path, type: 'website', index: false, jsonLd: [] }
   }
 
   if (pathname === '/' || pathname === '') {
