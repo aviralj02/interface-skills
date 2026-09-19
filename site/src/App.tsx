@@ -1,23 +1,37 @@
-import { Route, Routes } from 'react-router'
+import { Outlet, Route, Routes } from 'react-router'
 import { RouteEffects } from './components/RouteEffects'
 import { SiteFooter, SiteHeader } from './components/SiteChrome'
+import { DestructiveActionsDemo } from './demos/destructive-actions/DestructiveActionsDemo'
+import { DEMO_PATHS } from './demos/registry'
 import { Home } from './pages/Home'
 import { NotFound } from './pages/NotFound'
 import { SkillPage } from './pages/SkillPage'
 
-export function App() {
+function SiteLayout() {
   return (
     <div className="flex min-h-dvh flex-col">
-      <RouteEffects />
       <SiteHeader />
       <main id="main" className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/skills/:name" element={<SkillPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Outlet />
       </main>
       <SiteFooter />
     </div>
+  )
+}
+
+export function App() {
+  return (
+    <>
+      <RouteEffects />
+      <Routes>
+        {/* Demos are full-viewport stages with no site chrome, so a screen recording is just the demo. */}
+        <Route path={DEMO_PATHS.destructiveActions} element={<DestructiveActionsDemo />} />
+        <Route element={<SiteLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/skills/:name" element={<SkillPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
