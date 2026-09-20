@@ -3,6 +3,7 @@ import { RouteEffects } from './components/RouteEffects'
 import { SiteFooter, SiteHeader } from './components/SiteChrome'
 import { DestructiveActionsDemo } from './demos/destructive-actions/DestructiveActionsDemo'
 import { DEMO_PATHS } from './demos/registry'
+import { UxWritingDemo } from './demos/ux-writing/UxWritingDemo'
 import { Home } from './pages/Home'
 import { NotFound } from './pages/NotFound'
 import { SkillPage } from './pages/SkillPage'
@@ -26,6 +27,7 @@ export function App() {
       <Routes>
         {/* Demos are full-viewport stages with no site chrome, so a screen recording is just the demo. */}
         <Route path={DEMO_PATHS.destructiveActions} element={<DestructiveActionsDemo />} />
+        <Route path={DEMO_PATHS.uxWriting} element={<UxWritingDemo />} />
         <Route element={<SiteLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/skills/:name" element={<SkillPage />} />
