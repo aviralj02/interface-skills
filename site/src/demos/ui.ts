@@ -15,3 +15,6 @@ export const button = {
 } as const
 
 export const eyebrow = 'font-mono text-[11px] font-medium uppercase tracking-wider text-ink-3'
+
+export const field =
+  'h-9 w-full rounded-lg border border-line-strong bg-paper px-3 text-sm outline-none focus:border-accent aria-[invalid=true]:border-danger'
