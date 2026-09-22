@@ -3,6 +3,7 @@
 export const DEMO_PATHS = {
   destructiveActions: "/demo/destructive-actions",
   uxWriting: "/demo/ux-writing",
+  interfaceStates: "/demo/interface-states",
 } as const;
 
 export const DEMOS = [
@@ -19,5 +20,12 @@ export const DEMOS = [
     title: "ux-writing, with and without the skill",
     description:
       "The same five moments in the same app, side by side: an offline save, a bad email, an empty search, a partial upload, and a locked control. Default copy versus copy that says what happened, whether your work is safe, and what to do next.",
+  },
+  {
+    path: DEMO_PATHS.interfaceStates,
+    skill: "interface-states",
+    title: "interface-states, with and without the skill",
+    description:
+      "The same members table, side by side: independent loading/error flags that blank the screen on every refetch and throw away good data on failure, versus one state per region that keeps data visible, marks it stale, and gives every non-happy state a reason.",
   },
 ] as const;
