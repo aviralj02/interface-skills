@@ -1,6 +1,12 @@
 import { useEffect, useId, useRef, type KeyboardEvent, type ReactNode } from 'react'
 
 /** A fake product window. Fixed height so banners and toasts never make one pane jump. */
+const HEIGHT = {
+  tall: 'h-[740px]',
+  medium: 'h-[620px]',
+  compact: 'h-[440px]',
+} as const
+
 export function AppWindow({
   name,
   size = 'tall',
@@ -9,14 +15,14 @@ export function AppWindow({
   children,
 }: {
   name: string
-  /** tall fits a settings page plus a toast; compact leaves room for a control bar above the panes. */
-  size?: 'tall' | 'compact'
+  /** tall: a settings page plus a toast. medium: a table plus a control bar above the panes. compact: less content, no scroll. */
+  size?: keyof typeof HEIGHT
   modal?: ReactNode
   banner?: ReactNode
   children: ReactNode
 }) {
   return (
-    <div className={`relative ${size === 'tall' ? 'h-[740px]' : 'h-[440px]'} overflow-hidden rounded-2xl border border-line bg-paper shadow-[0_1px_0_var(--color-line),0_24px_48px_-24px_rgb(0_0_0/0.18)]`}>
+    <div className={`relative ${HEIGHT[size]} overflow-hidden rounded-2xl border border-line bg-paper shadow-[0_1px_0_var(--color-line),0_24px_48px_-24px_rgb(0_0_0/0.18)]`}>
       {/* While a dialog is open the app behind it is inert, so Tab and screen readers can't reach it. */}
       <div inert={Boolean(modal)} className="flex h-full flex-col">
         <div className="flex h-12 items-center gap-2.5 border-b border-line bg-surface px-4">
