@@ -5,6 +5,7 @@ export const DEMO_PATHS = {
   uxWriting: "/demo/ux-writing",
   interfaceStates: "/demo/interface-states",
   contentResilience: "/demo/content-resilience",
+  focusManagement: "/demo/focus-management",
 } as const;
 
 export const DEMOS = [
@@ -35,5 +36,12 @@ export const DEMOS = [
     title: "content-resilience, with and without the skill",
     description:
       "The same activity feed, side by side: a long name that clips the timestamp off the row, a broken image icon, a mangled emoji initial, and a huge count crammed into a tiny badge, versus a feed that wraps, falls back, and stays legible at every extreme.",
+  },
+  {
+    path: DEMO_PATHS.focusManagement,
+    skill: "focus-management",
+    title: "focus-management, with and without the skill",
+    description:
+      "The same task list, side by side: deleting a row loses focus to the top of the page, a rename box with no Tab trap, and a background update that steals focus, versus a list where deleting moves focus to a neighbor, the dialog traps Tab and gives it back, and updates never touch focus.",
   },
 ] as const;

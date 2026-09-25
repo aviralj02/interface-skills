@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from 'react-router'
 import { RouteEffects } from './components/RouteEffects'
 import { SiteFooter, SiteHeader } from './components/SiteChrome'
 import { ContentResilienceDemo } from './demos/content-resilience/ContentResilienceDemo'
+import { FocusManagementDemo } from './demos/focus-management/FocusManagementDemo'
 import { DestructiveActionsDemo } from './demos/destructive-actions/DestructiveActionsDemo'
 import { InterfaceStatesDemo } from './demos/interface-states/InterfaceStatesDemo'
 import { DEMO_PATHS } from './demos/registry'
@@ -32,6 +33,7 @@ export function App() {
         <Route path={DEMO_PATHS.uxWriting} element={<UxWritingDemo />} />
         <Route path={DEMO_PATHS.interfaceStates} element={<InterfaceStatesDemo />} />
         <Route path={DEMO_PATHS.contentResilience} element={<ContentResilienceDemo />} />
+        <Route path={DEMO_PATHS.focusManagement} element={<FocusManagementDemo />} />
         <Route element={<SiteLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/skills/:name" element={<SkillPage />} />
