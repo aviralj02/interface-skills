@@ -5,6 +5,7 @@ const HEIGHT = {
   tall: 'h-[740px]',
   medium: 'h-[620px]',
   compact: 'h-[440px]',
+  short: 'h-[340px]',
 } as const
 
 export function AppWindow({
@@ -15,7 +16,7 @@ export function AppWindow({
   children,
 }: {
   name: string
-  /** tall: a settings page plus a toast. medium: a table plus a control bar above the panes. compact: less content, no scroll. */
+  /** tall: a settings page plus a toast. medium: a table plus a control bar above the panes. compact/short: less content, no scroll. */
   size?: keyof typeof HEIGHT
   modal?: ReactNode
   banner?: ReactNode
