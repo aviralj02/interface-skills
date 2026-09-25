@@ -4,6 +4,7 @@ export const DEMO_PATHS = {
   destructiveActions: "/demo/destructive-actions",
   uxWriting: "/demo/ux-writing",
   interfaceStates: "/demo/interface-states",
+  contentResilience: "/demo/content-resilience",
 } as const;
 
 export const DEMOS = [
@@ -27,5 +28,12 @@ export const DEMOS = [
     title: "interface-states, with and without the skill",
     description:
       "The same members table, side by side: independent loading/error flags that blank the screen on every refetch and throw away good data on failure, versus one state per region that keeps data visible, marks it stale, and gives every non-happy state a reason.",
+  },
+  {
+    path: DEMO_PATHS.contentResilience,
+    skill: "content-resilience",
+    title: "content-resilience, with and without the skill",
+    description:
+      "The same activity feed, side by side: a long name that clips the timestamp off the row, a broken image icon, a mangled emoji initial, and a huge count crammed into a tiny badge, versus a feed that wraps, falls back, and stays legible at every extreme.",
   },
 ] as const;
