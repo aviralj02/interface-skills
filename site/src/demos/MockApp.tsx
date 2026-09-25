@@ -50,12 +50,20 @@ export function ModalDialog({ title, onClose, children }: { title: string; onClo
   const ref = useRef<HTMLDivElement>(null)
   const titleId = useId()
 
+  // Captured once, during the first render -- before the background becomes inert -- rather than
+  // inside the effect. In React StrictMode's dev-only double-invoke, capturing it in the effect
+  // would sometimes read back the dialog's own input: the first invocation's cleanup tries to
+  // restore focus to the trigger, but the trigger is still inert at that instant so the call is a
+  // silent no-op, and the second invocation then captures "trigger" as whatever is still focused
+  // -- the dialog's own input -- instead of the real trigger.
+  const triggerRef = useRef<HTMLElement | null>(null)
+  if (triggerRef.current === null) triggerRef.current = document.activeElement as HTMLElement
+
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const trigger = document.activeElement as HTMLElement | null
     ;(el.querySelector<HTMLElement>('[data-autofocus]') ?? el).focus()
-    return () => trigger?.focus?.()
+    return () => triggerRef.current?.focus?.()
   }, [])
 
   const onKeyDown = (e: KeyboardEvent) => {
