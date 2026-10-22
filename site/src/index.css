@@ -172,9 +172,41 @@
       text-decoration-color 200ms ease;
   }
 
-  /* Install block: a short settle when switching tabs, and a selection-colored highlight on what was copied. */
+  /* Copy icon: the two sheets fold away and a tick draws itself in their place, then reverses. */
+  .copy-icon > * {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 260ms var(--ease-out-expo),
+      scale 360ms var(--ease-out-expo),
+      translate 360ms var(--ease-out-expo),
+      stroke-dashoffset 420ms var(--ease-out-expo);
+  }
+  .copy-icon-tick {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  .copy-icon[data-done='true'] .copy-icon-back {
+    opacity: 0;
+    translate: -3px -3px;
+  }
+  .copy-icon[data-done='true'] .copy-icon-front {
+    opacity: 0;
+    scale: 0.35;
+  }
+  .copy-icon[data-done='true'] .copy-icon-tick {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transition-delay: 90ms;
+  }
+  /* Install block: switching tabs morphs the panel. Its height glides to the new content while the
+     content comes into focus from a soft blur. Copying flashes a selection-colored highlight. */
+  .morph-panel {
+    transition: height 480ms var(--ease-out-expo);
+  }
   .swap-in {
-    animation: swap-in 260ms var(--ease-out-expo);
+    animation: swap-in 460ms var(--ease-out-expo);
   }
   .copied-flash {
     border-radius: 3px;
@@ -183,7 +215,8 @@
   @keyframes swap-in {
     from {
       opacity: 0;
-      transform: translateY(3px);
+      filter: blur(6px);
+      transform: translateY(6px) scale(0.985);
     }
   }
   @keyframes copied-flash {
@@ -198,6 +231,17 @@
   @media (prefers-reduced-motion: reduce) {
     .swap-in {
       animation-name: fade-in;
+    }
+    .morph-panel {
+      transition: none;
+    }
+    .copy-icon > * {
+      transition: opacity 150ms linear;
+    }
+    .copy-icon[data-done='true'] .copy-icon-back,
+    .copy-icon[data-done='true'] .copy-icon-front {
+      translate: none;
+      scale: none;
     }
   }
   @keyframes fade-in {

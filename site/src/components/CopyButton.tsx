@@ -1,25 +1,9 @@
-import { Check, Copy, TriangleAlert } from 'lucide-react'
+import { TriangleAlert } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { copyText } from '../lib/clipboard'
+import { CopyIcon } from './CopyIcon'
 
 type Status = 'idle' | 'copied' | 'failed'
-
-async function writeClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return
-  }
-  // Fallback for insecure contexts and older browsers.
-  const area = document.createElement('textarea')
-  area.value = text
-  area.setAttribute('readonly', '')
-  area.style.position = 'fixed'
-  area.style.opacity = '0'
-  document.body.appendChild(area)
-  area.select()
-  const ok = document.execCommand('copy')
-  area.remove()
-  if (!ok) throw new Error('copy failed')
-}
 
 export function CopyButton({
   text,
@@ -47,7 +31,7 @@ export function CopyButton({
   async function copy() {
     window.clearTimeout(timer.current)
     try {
-      await writeClipboard(text)
+      await copyText(text)
       setStatus('copied')
       onCopied?.()
     } catch {
@@ -56,11 +40,6 @@ export function CopyButton({
     timer.current = window.setTimeout(() => setStatus('idle'), 2000)
   }
 
-  const icons = [
-    { key: 'idle', Icon: Copy },
-    { key: 'copied', Icon: Check },
-    { key: 'failed', Icon: TriangleAlert },
-  ] as const
   const visible = status === 'copied' ? 'Copied' : status === 'failed' ? 'Select and copy' : label
 
   return (
@@ -80,16 +59,10 @@ export function CopyButton({
         } ${className}`}
       >
         <span aria-hidden className="grid size-[15px] [&>*]:[grid-area:1/1]">
-          {icons.map(({ key, Icon }) => (
-            <Icon
-              key={key}
-              size={15}
-              strokeWidth={1.75}
-              className={`transition-[opacity,scale,filter] duration-200 ease-out-expo motion-reduce:transition-opacity ${
-                status === key ? 'scale-100 opacity-100 blur-none' : 'scale-50 opacity-0 blur-[2px] motion-reduce:scale-100 motion-reduce:blur-none'
-              }`}
-            />
-          ))}
+          <span className={`transition-opacity duration-200 ${status === 'failed' ? 'opacity-0' : 'opacity-100'}`}>
+            <CopyIcon done={status === 'copied'} size={15} />
+          </span>
+          <TriangleAlert size={15} strokeWidth={1.75} className={`transition-opacity duration-200 ${status === 'failed' ? 'opacity-100' : 'opacity-0'}`} />
         </span>
         {showLabel && <span className={`text-left ${compact ? 'max-sm:sr-only' : ''} sm:min-w-[4.5rem]`}>{visible}</span>}
       </button>

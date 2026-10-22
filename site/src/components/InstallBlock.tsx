@@ -1,6 +1,7 @@
 import { Fragment, useId, useRef, useState, type KeyboardEvent } from 'react'
 import type { InstallMethod } from '../content/site'
 import { useIndicator } from '../lib/useIndicator'
+import { useMorphHeight } from '../lib/useMorphHeight'
 import { CopyButton } from './CopyButton'
 
 // Commands may wrap only at spaces or after a slash, never mid-word where a hyphen would look typed.
@@ -28,6 +29,7 @@ export function InstallBlock({ methods, className = '' }: { methods: InstallMeth
   const base = useId()
   const method = methods[active]
   const { box, animate } = useIndicator(tabs, active)
+  const { ref: panelRef, height: panelHeight } = useMorphHeight<HTMLDivElement>()
 
   function select(i: number) {
     setActive(i)
@@ -99,22 +101,31 @@ export function InstallBlock({ methods, className = '' }: { methods: InstallMeth
           onCopied={() => setCopies((n) => n + 1)}
         />
       </div>
-      <div role="tabpanel" id={`${base}-panel`} aria-labelledby={`${base}-tab-${method.id}`} className="px-4 pt-3.5 pb-3">
-        {/* Keyed so switching tabs replays a short settle, and each copy replays the highlight. */}
-        <div key={method.id} className="swap-in">
-          <pre className="overflow-x-auto font-mono text-[0.875rem] leading-6 text-ink">
-            {method.lines.map((line) => (
-              <div key={line} className="flex gap-3 py-0.5">
-                <span aria-hidden className="shrink-0 text-ink-3 select-none">
-                  {line.startsWith('/') ? '›' : '$'}
-                </span>
-                <span key={copies} className={`min-w-0 whitespace-pre-wrap ${copies ? 'copied-flash' : ''}`}>
-                  {breakable(line)}
-                </span>
-              </div>
-            ))}
-          </pre>
-          {method.note && <p className="mt-2 text-[0.8125rem] text-ink-3">{method.note}</p>}
+      {/* The panel morphs between tabs: its height glides to the new content while the content blurs into place. */}
+      <div
+        role="tabpanel"
+        id={`${base}-panel`}
+        aria-labelledby={`${base}-tab-${method.id}`}
+        className="morph-panel overflow-hidden"
+        style={{ height: panelHeight }}
+      >
+        <div ref={panelRef} className="px-4 pt-3.5 pb-3">
+          {/* Keyed so switching tabs replays the morph, and each copy replays the highlight. */}
+          <div key={method.id} className="swap-in">
+            <pre className="overflow-x-auto font-mono text-[0.875rem] leading-6 text-ink">
+              {method.lines.map((line) => (
+                <div key={line} className="flex gap-3 py-0.5">
+                  <span aria-hidden className="shrink-0 text-ink-3 select-none">
+                    {line.startsWith('/') ? '›' : '$'}
+                  </span>
+                  <span key={copies} className={`min-w-0 whitespace-pre-wrap ${copies ? 'copied-flash' : ''}`}>
+                    {breakable(line)}
+                  </span>
+                </div>
+              ))}
+            </pre>
+            {method.note && <p className="mt-2 text-[0.8125rem] text-ink-3">{method.note}</p>}
+          </div>
         </div>
       </div>
     </div>
