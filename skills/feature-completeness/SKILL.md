@@ -82,6 +82,7 @@ For each path, answer the questions, mark a status, and record evidence.
 - Where does focus go after opening, closing, submitting, deleting, and navigating?
 - Are state changes (errors, success, loading complete) announced to screen readers?
 - Are all controls labeled, and is nothing conveyed by color alone?
+- With reduced motion turned on, is every animation calmed, and does everything still appear, close, and finish?
 
 #### Recovery path
 - Can the user undo or reverse what they just did? If not, were they warned?
@@ -120,6 +121,7 @@ Rank each gap:
 |---|---|
 | Missing states on a surface | `interface-states` |
 | Action feedback, retries, races, optimistic updates | `async-interactions` |
+| Motion that ignores reduced motion, or breaks when it's on | `reduced-motion` |
 
 Everything else gets a concrete fix in the scorecard instead of a skill: a dead end gets the missing branch, a hover-only control gets a touch target, a lost focus gets an explicit focus target, a vague error gets a message that says what to do next, and an unguarded delete gets undo or a confirmation that names what will be lost.
 
