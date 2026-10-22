@@ -20,7 +20,7 @@ export function Home() {
           >
             Teach your agent the parts it <SkipWord word="skips." />
           </h1>
-          <p className="mt-5 text-[1.0625rem] leading-relaxed text-pretty text-[#3d3324] sm:text-[1.1875rem]">Small, focused skills for your coding agent.</p>
+          <p className="mt-[clamp(2.75rem,5vw,3.75rem)] text-[1.0625rem] leading-relaxed text-pretty text-[#3d3324] sm:text-[1.1875rem]">Small, focused skills for your coding agent.</p>
           <div className="mt-8 flex w-full justify-center">
             <CommandPill command={`npx skills add ${REPO}`} />
           </div>
