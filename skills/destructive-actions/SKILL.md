@@ -152,9 +152,8 @@ Never: "Are you sure?" with "Yes/No", "OK/Cancel" for destruction, or dialogs th
 
 - Native `<dialog>` with `showModal()` handles focus containment and Escape; set initial focus explicitly for destructive dialogs.
 - Toasts with undo need `role="status"` (or a live region) and must not auto-dismiss while focused or hovered.
-- Return focus after deletion to the next logical item (see `focus-management`).
+- Return focus after deletion to the next logical item, not the top of the page.
 - Model soft delete in the data layer (`deleted_at`) and filter it out by default in queries.
-- Use `ux-writing` for confirmation and toast copy.
 
 ## Output Expectations
 

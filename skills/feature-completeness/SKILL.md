@@ -21,7 +21,7 @@ Most features ship with the happy path finished and every other path improvised.
 1. **A path is complete only with evidence.** "Handled" means you can point to the code, the rendered state, or the test. Otherwise it is "assumed".
 2. **Name the feature by the user's goal, not the component.** "Invite a teammate", not "InviteModal". Goals cross components; that is where gaps hide.
 3. **Gaps are ranked by user harm, not effort.** Data loss and dead ends outrank cosmetic inconsistency.
-4. **Every gap has an owner skill.** A review that only lists problems is half a review.
+4. **Every gap has an owner.** Route it to a skill or name the concrete fix. A review that only lists problems is half a review.
 5. **Not applicable is a decision.** Record why a path does not apply.
 
 ## Workflow
@@ -35,7 +35,7 @@ Write one sentence: *who* does *what* to achieve *which outcome*. Then list:
 - **Data** — what it reads and writes
 - **Roles** — who can see it, who can act
 
-If you cannot write these, the feature is under-specified. Stop and resolve that first (see `user-flows`, `information-architecture`).
+If you cannot write these, the feature is under-specified. Stop and resolve that first.
 
 ### 2. Walk the eight paths
 
@@ -120,14 +120,9 @@ Rank each gap:
 |---|---|
 | Missing states on a surface | `interface-states` |
 | Action feedback, retries, races, optimistic updates | `async-interactions` |
-| Dead ends, missing branches, interruption, resume | `user-flows` |
-| Wrong placement, unclear hierarchy, page vs modal | `information-architecture` |
 | Delete/overwrite without safeguards | `destructive-actions` |
-| Focus lost or misplaced | `focus-management` |
-| Breaks at small widths or with touch | `responsive-behavior` |
-| Breaks with long/missing/unusual content | `content-resilience` |
-| Unclear messages, labels, errors | `ux-writing` |
-| Behaves differently from similar features | `pattern-consistency` |
+
+Everything else gets a concrete fix in the scorecard instead of a skill: a dead end gets the missing branch, a hover-only control gets a touch target, a lost focus gets an explicit focus target, a vague error gets a message that says what to do next.
 
 ## Checklist
 
@@ -158,8 +153,8 @@ Rank each gap:
 | Empty | partial | Exporting 0 rows downloads an empty CSV with no warning | P2 | interface-states |
 | Loading | missing | Large exports take 40s+; no indicator; users click repeatedly → duplicate jobs | P0 | async-interactions |
 | Permission | complete | Button hidden for viewers; `/export` returns 403 for viewers | — | — |
-| Mobile | partial | Button lives in a hover toolbar unreachable on touch | P1 | responsive-behavior |
-| Accessibility | partial | Icon-only button without accessible name | P2 | focus-management / a11y |
+| Mobile | partial | Button lives in a hover toolbar unreachable on touch | P1 | fix: move to an always-visible overflow menu |
+| Accessibility | partial | Icon-only button without accessible name | P2 | fix: add an accessible name |
 | Recovery | n/a | Export is read-only; nothing to undo | — | — |
 
 **Ship blockers:** duplicate export jobs from missing loading feedback.
@@ -177,6 +172,6 @@ Produce:
 1. **Feature definition** — goal sentence, entry points, actions, data, roles.
 2. **Completeness scorecard** — `Path | Status | Evidence / Gap | Rank | Route` for all eight paths (split a path into multiple rows when it has multiple gaps).
 3. **Ship blockers** — all P0 gaps.
-4. **Next steps** — gaps grouped by the skill that owns them, in priority order.
+4. **Next steps** — gaps grouped by the skill or fix that owns them, in priority order.
 
 State plainly when evidence was unavailable (for example, the app could not be run), and which statuses are therefore `unknown`.

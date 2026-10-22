@@ -18,7 +18,7 @@ The output is a **state matrix**: the shared artifact the rest of this collectio
 - Reviewing a surface that "looks done" in screenshots
 - A bug report mentions a blank screen, infinite spinner, flash of empty content, or a stale value
 
-Scope: **a surface** (something that renders data). For **an action** the user triggers (save, delete, upload), use `async-interactions`. For **a journey across surfaces**, use `user-flows`.
+Scope: **a surface** (something that renders data). For **an action** the user triggers (save, delete, upload), use `async-interactions`.
 
 ## Core Principles
 
@@ -56,7 +56,7 @@ Classify each: **blocking** (surface is meaningless without it), **non-blocking*
 | Empty — first use | What does a new user see? What is the one action that fills it? |
 | Empty — no results | Filters/search returned nothing. Show the active criteria and a way to clear them. |
 | Empty — cleared | User deleted/archived everything. Confirm it is intentional; point to archive/trash if one exists. |
-| Populated | Typical volume. Also: 1 item, and the maximum realistic count (see `content-resilience`). |
+| Populated | Typical volume. Also: 1 item, and the maximum realistic count. |
 | Partial | Some items or regions loaded, others failed. How is the failed part marked? |
 | Error — recoverable | Network/timeout/5xx. Message + retry. Is anything cached to show? |
 | Error — not found | 404/deleted. Different from a network error: retry will not help. |
@@ -161,4 +161,4 @@ Produce:
 3. **State model** — the discriminated union (or equivalent) for the framework in use.
 4. **Gaps** — if reviewing existing code, list each missing state with the file and line where it should be handled.
 
-When a row involves a user-triggered action, hand it to `async-interactions`. When a row needs copy, hand it to `ux-writing`.
+When a row involves a user-triggered action, hand it to `async-interactions`.
