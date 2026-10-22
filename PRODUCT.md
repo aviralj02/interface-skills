@@ -16,7 +16,7 @@ Secondary: indie hackers, startup teams, and developers without formal UX traini
 
 ## Product Purpose
 
-Interface Skills is Aviral Jain's open-source catalog of agent skills (SKILL.md files). It is not limited to UI: skills are grouped into collections, and new collections for other kinds of work will be added over time. Every skill installs on its own and can be promoted on its own. The first collection, interface behavior, has 3 skills: completeness, states, and async actions. The catalog stays small on purpose: a skill earns its place only if agents reliably get its subject wrong without help. The website presents the catalog. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
+Interface Skills is Aviral Jain's open-source catalog of agent skills (SKILL.md files). It is not limited to UI: skills are grouped into collections, and new collections for other kinds of work will be added over time. Every skill installs on its own and can be promoted on its own. The first collection, interface behavior, has 4 skills: completeness, states, async actions, and reduced motion. The catalog stays small on purpose: a skill earns its place only if agents reliably get its subject wrong without help. The website presents the catalog. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
 
 Success means a visitor installs the pack, or a specific skill, with confidence in what they are getting.
 
@@ -24,7 +24,7 @@ Success means a visitor installs the pack, or a specific skill, with confidence 
 
 "Teach your agent the parts it skips."
 
-Each skill covers one problem agents skip without help and ends in a defined artifact (in the interface collection: completeness scorecard, state matrix, action spec). Skills within a collection hand off to each other; in the interface collection, `feature-completeness` is the entry point.
+Each skill covers one problem agents skip without help and ends in a defined artifact (in the interface collection: completeness scorecard, state matrix, action spec, motion inventory). Skills within a collection hand off to each other; in the interface collection, `feature-completeness` is the entry point.
 
 ## Operating Context
 
@@ -37,7 +37,7 @@ Each skill covers one problem agents skip without help and ends in a defined art
 
 ## Capabilities and Constraints
 
-- 3 skills in 1 collection, **Interface behavior**: feature-completeness (the entry point), interface-states, async-interactions. Collections are defined in `site/src/content/skills.ts`.
+- 4 skills in 1 collection, **Interface behavior**: feature-completeness (the entry point), interface-states, async-interactions, reduced-motion. Collections are defined in `site/src/content/skills.ts`.
 - Every skill has frontmatter (`name`, `description`) and the same nine sections: Purpose, When to Use, Core Principles, Workflow, Checklist, Common Mistakes, Example, Implementation Notes, Output Expectations.
 - 3 worked examples live in `examples/` (dashboard, tables, forms).
 - The home page's primary action is installing the whole pack. Individual skill pages render the full SKILL.md with per-skill install commands and a table of contents.

@@ -28,7 +28,7 @@ export const GROUPS: { id: GroupId; title: string; blurb: string }[] = [
   {
     id: 'interface',
     title: 'Interface behavior',
-    blurb: 'The states, failures, and async edge cases agents skip when they build UI. Start with feature-completeness; it hands each gap to the skill that fixes it.',
+    blurb: 'The states, failures, async edge cases, and motion settings agents skip when they build UI. Start with feature-completeness; it hands each gap to the skill that fixes it.',
   },
 ]
 
@@ -37,6 +37,7 @@ const CATALOG: { name: string; group: GroupId; summary: string; produces: string
   { name: 'feature-completeness', group: 'interface', summary: 'Scores a feature across eight paths and ranks every gap by harm.', produces: 'Completeness scorecard' },
   { name: 'interface-states', group: 'interface', summary: 'Every state a surface can be in, with UI and a next action for each.', produces: 'State matrix' },
   { name: 'async-interactions', group: 'interface', summary: 'Pending feedback, races, retries, optimistic updates, background jobs.', produces: 'Action spec' },
+  { name: 'reduced-motion', group: 'interface', summary: 'Every animation calmed under reduced motion, and nothing breaks when it is.', produces: 'Motion inventory' },
 ]
 
 function parse(raw: string) {

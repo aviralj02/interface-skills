@@ -6,7 +6,7 @@
 
 Small, focused agent skills by [Aviral Jain](https://heyaviral.com). Every skill installs on its own, so you can add only what your agent is missing, or take the whole set in one command.
 
-The first collection is **interface behavior**: three skills for building interfaces that hold up once people actually use them. They cover what agents most often skip: unfinished features, missing states, and broken async actions. More collections, for work beyond interfaces, will join as they are written.
+The first collection is **interface behavior**: four skills for building interfaces that hold up once people actually use them. They cover what agents most often skip: unfinished features, missing states, broken async actions, and motion that ignores reduced-motion settings. More collections, for work beyond interfaces, will join as they are written.
 
 Each skill is a `SKILL.md` file that follows the open [Agent Skills](https://agentskills.io) format. They work with Claude Code, Codex, Cursor, and any other agent that loads skills. You can also read them as checklists yourself.
 
@@ -30,16 +30,18 @@ Most UI skill collections focus on visual quality. These skills focus on behavio
 | [`feature-completeness`](skills/feature-completeness/SKILL.md) | Scorecard across 8 paths + ranked gaps routed to other skills | "Is this done?" — **start here** |
 | [`interface-states`](skills/interface-states/SKILL.md) | State matrix + state model | Any surface that renders data |
 | [`async-interactions`](skills/async-interactions/SKILL.md) | Action spec per operation | Save, submit, upload, sync, search-as-you-type |
+| [`reduced-motion`](skills/reduced-motion/SKILL.md) | Motion inventory with a verified reduced behavior per item | Any animation, parallax, carousel, or page transition |
 
 ## How they compose
 
 ```text
 feature-completeness              (what's missing?)
-    └── interface-states          (every state of each surface)
-          └── async-interactions  (every action's lifecycle)
+    ├── interface-states          (every state of each surface)
+    │     └── async-interactions  (every action's lifecycle)
+    └── reduced-motion            (calm motion that never breaks)
 ```
 
-Each skill works on its own. Their outputs use shared vocabulary (state matrix, action spec, error kinds), so the output of one skill can feed straight into the next. Gaps outside these three (focus, copy, mobile layout, unguarded deletes) get a concrete fix in the `feature-completeness` scorecard rather than a separate skill.
+Each skill works on its own. Their outputs use shared vocabulary (state matrix, action spec, error kinds), so the output of one skill can feed straight into the next. Gaps outside these four (focus, copy, mobile layout, unguarded deletes) get a concrete fix in the `feature-completeness` scorecard rather than a separate skill.
 
 ## Install
 
@@ -87,6 +89,7 @@ Ask for the outcome. The skill descriptions are written so agents load the right
 - "Is the export feature ready to ship?" → `feature-completeness`
 - "What states does this dashboard need?" → `interface-states`
 - "Users are creating duplicate orders" → `async-interactions`
+- "Make the animations respect reduced motion" → `reduced-motion`
 
 You can also name a skill directly: "Use interface-states on the billing page."
 

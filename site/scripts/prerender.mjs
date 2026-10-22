@@ -98,7 +98,7 @@ const groupSections = GROUPS.map((group) => {
 
 const llmsTxt = `# ${SITE_NAME}
 
-> Small, focused agent skills by ${AUTHOR.name} that teach your agent the parts it skips. Every skill installs on its own. ${SKILLS.length} skills, each producing a concrete artifact (a completeness scorecard, a state matrix, an action spec). For interface work, start with feature-completeness; it routes every gap it finds to the skill that fixes it.
+> Small, focused agent skills by ${AUTHOR.name} that teach your agent the parts it skips. Every skill installs on its own. ${SKILLS.length} skills, each producing a concrete artifact (a completeness scorecard, a state matrix, an action spec, a motion inventory). For interface work, start with feature-completeness; it routes every gap it finds to the skill that fixes it.
 
 Install the whole pack: \`npx skills add ${REPO_URL.replace('https://github.com/', '')}\`. Full instructions: ${SITE_URL}/
 
