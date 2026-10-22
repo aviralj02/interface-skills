@@ -21,19 +21,22 @@ export type Skill = {
   lines: number
 }
 
-export type GroupId = 'start' | 'behavior'
+// A group is a collection on the rack. New kinds of skills get a new collection, not a redesign.
+export type GroupId = 'interface'
 
 export const GROUPS: { id: GroupId; title: string; blurb: string }[] = [
-  { id: 'start', title: 'Start here', blurb: 'Find what a feature is missing, then route each gap to the skill that fixes it.' },
-  { id: 'behavior', title: 'States and actions', blurb: 'What a surface shows, what happens after someone acts, and how they undo it.' },
+  {
+    id: 'interface',
+    title: 'Interface behavior',
+    blurb: 'The states, failures, and async edge cases agents skip when they build UI. Start with feature-completeness; it hands each gap to the skill that fixes it.',
+  },
 ]
 
 // Curation only: grouping, order, and a one-line summary for the index.
 const CATALOG: { name: string; group: GroupId; summary: string; produces: string }[] = [
-  { name: 'feature-completeness', group: 'start', summary: 'Scores a feature across eight paths and ranks every gap by harm.', produces: 'Completeness scorecard' },
-  { name: 'interface-states', group: 'behavior', summary: 'Every state a surface can be in, with UI and a next action for each.', produces: 'State matrix' },
-  { name: 'async-interactions', group: 'behavior', summary: 'Pending feedback, races, retries, optimistic updates, background jobs.', produces: 'Action spec' },
-  { name: 'destructive-actions', group: 'behavior', summary: 'Safeguards matched to risk: undo, trash, confirm, type-to-confirm.', produces: 'Destructive action inventory' },
+  { name: 'feature-completeness', group: 'interface', summary: 'Scores a feature across eight paths and ranks every gap by harm.', produces: 'Completeness scorecard' },
+  { name: 'interface-states', group: 'interface', summary: 'Every state a surface can be in, with UI and a next action for each.', produces: 'State matrix' },
+  { name: 'async-interactions', group: 'interface', summary: 'Pending feedback, races, retries, optimistic updates, background jobs.', produces: 'Action spec' },
 ]
 
 function parse(raw: string) {
@@ -79,7 +82,7 @@ export const SKILLS: Skill[] = CATALOG.flatMap((entry) => {
 // Skills present in the repo but missing from the catalog still get a page.
 for (const [name, p] of parsed) {
   if (!SKILLS.some((s) => s.name === name)) {
-    SKILLS.push({ ...p, name, group: 'behavior', summary: p.description.split('. ')[0], produces: 'See skill', headings: extractHeadings(p.body) })
+    SKILLS.push({ ...p, name, group: 'interface', summary: p.description.split('. ')[0], produces: 'See skill', headings: extractHeadings(p.body) })
   }
 }
 

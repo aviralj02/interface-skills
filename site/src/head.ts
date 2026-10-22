@@ -1,7 +1,7 @@
 import { AUTHOR, REPO_URL, SITE_NAME, SITE_URL } from './content/site'
 import { getSkill, GROUPS, SKILLS } from './content/skills'
 
-const HOME_DESCRIPTION = `${SKILLS.length} agent skills for how interfaces behave: states, failures, async actions, and recovery — not just how they look. Each skill produces a concrete artifact. Install with npx skills or as a Claude Code plugin.`
+const HOME_DESCRIPTION = `Small, focused agent skills by Aviral Jain that teach your agent the parts it skips. ${SKILLS.length} skills, each installable on its own, each ending in a concrete artifact. Install with npx skills or as a Claude Code plugin.`
 
 const PERSON = { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.site, sameAs: [AUTHOR.url] } as const
 
@@ -71,7 +71,7 @@ export function headFor(pathname: string): Head {
 
   if (pathname === '/' || pathname === '') {
     return {
-      title: `${SITE_NAME}: how interfaces behave`,
+      title: `${SITE_NAME}: teach your agent the parts it skips`,
       description: HOME_DESCRIPTION,
       path: '/',
       type: 'website',
