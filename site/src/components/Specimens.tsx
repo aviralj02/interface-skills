@@ -1,4 +1,4 @@
-import { CircleAlert, Lock, RotateCw, UserPlus } from 'lucide-react'
+import { CircleAlert, Lock, RotateCw, Undo2, UserPlus } from 'lucide-react'
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Link } from 'react-router'
 import { useIndicator } from '../lib/useIndicator'
@@ -34,11 +34,11 @@ function Panel({ children, action = true, disabled = false }: { children: ReactN
   )
 }
 
-function Row({ m, long }: { m: Member; long?: boolean }) {
+function Row({ m }: { m: Member }) {
   return (
     <div className="flex items-center gap-2 border-t border-line py-1.5 first:border-t-0">
       <span className={`grid size-6 shrink-0 place-items-center rounded-full text-[0.5625rem] font-bold ${m.tone}`}>{m.initials}</span>
-      <span className={`min-w-0 flex-1 text-[0.75rem] leading-tight text-ink ${long ? 'line-clamp-2 [overflow-wrap:break-word]' : 'truncate'}`} title={m.name}>
+      <span className="min-w-0 flex-1 truncate text-[0.75rem] leading-tight text-ink" title={m.name}>
         {m.name}
       </span>
       <span className="shrink-0 text-[0.6875rem] text-ink-3 max-sm:hidden">{m.role}</span>
@@ -76,7 +76,7 @@ const STATES: { id: string; label: string; skill?: string; ui: ReactNode }[] = [
   {
     id: 'empty',
     label: 'Empty',
-    skill: 'ux-writing',
+    skill: 'interface-states',
     ui: (
       <Panel action={false}>
         <div className="flex flex-1 flex-col items-start justify-center gap-1.5 py-1">
@@ -127,14 +127,21 @@ const STATES: { id: string; label: string; skill?: string; ui: ReactNode }[] = [
     ),
   },
   {
-    id: 'long',
-    label: 'Long content',
-    skill: 'content-resilience',
+    id: 'removed',
+    label: 'Removed by mistake',
+    skill: 'destructive-actions',
     ui: (
       <Panel>
-        <Row m={{ name: 'Maximilian Alexander von Hohenberg-Schwarzenbach', role: 'Admin', initials: 'MH', tone: MEMBERS[0].tone }} long />
-        <Row m={MEMBERS[1]} />
-        <p className="mt-auto pt-1 text-[0.6875rem] text-ink-3">+ 1,284 more</p>
+        {MEMBERS.slice(0, 2).map((m) => (
+          <Row key={m.name} m={m} />
+        ))}
+        <p className="mt-auto flex items-center justify-between gap-2 rounded-md bg-ink px-2 py-1.5 text-[0.6875rem] text-paper">
+          Priya removed
+          <span className="inline-flex items-center gap-1 font-semibold">
+            <Undo2 aria-hidden size={11} strokeWidth={2} />
+            Undo
+          </span>
+        </p>
       </Panel>
     ),
   },
