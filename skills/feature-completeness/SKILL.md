@@ -120,9 +120,8 @@ Rank each gap:
 |---|---|
 | Missing states on a surface | `interface-states` |
 | Action feedback, retries, races, optimistic updates | `async-interactions` |
-| Delete/overwrite without safeguards | `destructive-actions` |
 
-Everything else gets a concrete fix in the scorecard instead of a skill: a dead end gets the missing branch, a hover-only control gets a touch target, a lost focus gets an explicit focus target, a vague error gets a message that says what to do next.
+Everything else gets a concrete fix in the scorecard instead of a skill: a dead end gets the missing branch, a hover-only control gets a touch target, a lost focus gets an explicit focus target, a vague error gets a message that says what to do next, and an unguarded delete gets undo or a confirmation that names what will be lost.
 
 ## Checklist
 

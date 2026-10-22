@@ -1,6 +1,6 @@
 # The states every data table needs
 
-Skills used: `interface-states` → `destructive-actions`
+Skills used: `interface-states`
 
 ## The prompt
 
@@ -32,7 +32,7 @@ Skills used: `interface-states` → `destructive-actions`
 
 Quantity: 0 → state 3/4; 10,000 users → server-side pagination, sort, search; "Select all" selects the page, then offers "Select all 10,000 matching".
 
-## 3. Bulk delete (destructive-actions)
+## 3. Bulk delete
 
 Severity: R2 (soft delete, 30-day restore) × B3 (users lose access).
 
