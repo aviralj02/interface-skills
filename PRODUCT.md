@@ -16,15 +16,15 @@ Secondary: indie hackers, startup teams, and developers without formal UX traini
 
 ## Product Purpose
 
-Interface Skills is an open-source pack of 4 agent skills (SKILL.md files) about interface behavior: completeness, states, async actions, and destructive actions. The pack is deliberately small: it only covers behavior agents reliably get wrong without help. The website presents the pack. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
+Interface Skills is Aviral Jain's open-source catalog of agent skills (SKILL.md files). It is not limited to UI: skills are grouped into collections, and new collections for other kinds of work will be added over time. Every skill installs on its own and can be promoted on its own. The first collection, interface behavior, has 3 skills: completeness, states, and async actions. The catalog stays small on purpose: a skill earns its place only if agents reliably get its subject wrong without help. The website presents the catalog. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
 
 Success means a visitor installs the pack, or a specific skill, with confidence in what they are getting.
 
 ## Positioning
 
-"UI patterns teach you how interfaces look. Interface Skills teaches you how they behave."
+"Teach your agent the parts it skips."
 
-Most existing skill collections focus on visual polish. Each skill here covers one behavioral problem and ends in a defined artifact: completeness scorecard, state matrix, action spec, destructive action inventory. The skills are designed to hand off to each other, with `feature-completeness` as the entry point.
+Each skill covers one problem agents skip without help and ends in a defined artifact (in the interface collection: completeness scorecard, state matrix, action spec). Skills within a collection hand off to each other; in the interface collection, `feature-completeness` is the entry point.
 
 ## Operating Context
 
@@ -37,9 +37,7 @@ Most existing skill collections focus on visual polish. Each skill here covers o
 
 ## Capabilities and Constraints
 
-- 4 skills in 2 groups:
-  - **Start here:** feature-completeness
-  - **States and actions:** interface-states, async-interactions, destructive-actions
+- 3 skills in 1 collection, **Interface behavior**: feature-completeness (the entry point), interface-states, async-interactions. Collections are defined in `site/src/content/skills.ts`.
 - Every skill has frontmatter (`name`, `description`) and the same nine sections: Purpose, When to Use, Core Principles, Workflow, Checklist, Common Mistakes, Example, Implementation Notes, Output Expectations.
 - 3 worked examples live in `examples/` (dashboard, tables, forms).
 - The home page's primary action is installing the whole pack. Individual skill pages render the full SKILL.md with per-skill install commands and a table of contents.
@@ -48,7 +46,8 @@ Most existing skill collections focus on visual polish. Each skill here covers o
 ## Brand Commitments
 
 - Name: Interface Skills. Author: Aviral Jain (github.com/aviralj02, heyaviral.com). License: MIT.
-- The user asked for a minimal, clean UI and lucide icons.
+- The user asked for lucide icons, a single centered punchline over a bright scenic photograph with parallax, and hover micro-interactions throughout the landing page.
+- The look must stay minimal and elegant, never childish: a real photograph, not illustration. An illustrated garden version was rejected for looking like a play-school site.
 
 ## Evidence on Hand
 

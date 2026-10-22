@@ -1,10 +1,12 @@
 # Interface Skills
 
-> UI patterns teach you how interfaces look. Interface Skills teaches you how they behave.
+> Teach your agent the parts it skips.
 
 **[skills.heyaviral.com](https://skills.heyaviral.com)** — browse every skill, or install directly with `npx skills add aviralj02/interface-skills`.
 
-Four agent skills for building interfaces that hold up once people actually use them. They cover the behavior agents most often skip: missing states, broken async actions, and unsafe deletes.
+Small, focused agent skills by [Aviral Jain](https://heyaviral.com). Every skill installs on its own, so you can add only what your agent is missing, or take the whole set in one command.
+
+The first collection is **interface behavior**: three skills for building interfaces that hold up once people actually use them. They cover what agents most often skip: unfinished features, missing states, and broken async actions. More collections, for work beyond interfaces, will join as they are written.
 
 Each skill is a `SKILL.md` file that follows the open [Agent Skills](https://agentskills.io) format. They work with Claude Code, Codex, Cursor, and any other agent that loads skills. You can also read them as checklists yourself.
 
@@ -28,18 +30,16 @@ Most UI skill collections focus on visual quality. These skills focus on behavio
 | [`feature-completeness`](skills/feature-completeness/SKILL.md) | Scorecard across 8 paths + ranked gaps routed to other skills | "Is this done?" — **start here** |
 | [`interface-states`](skills/interface-states/SKILL.md) | State matrix + state model | Any surface that renders data |
 | [`async-interactions`](skills/async-interactions/SKILL.md) | Action spec per operation | Save, submit, upload, sync, search-as-you-type |
-| [`destructive-actions`](skills/destructive-actions/SKILL.md) | Inventory with severity → safeguard | Delete, overwrite, revoke, bulk actions |
 
 ## How they compose
 
 ```text
 feature-completeness              (what's missing?)
-    ├── interface-states          (every state of each surface)
-    │     └── async-interactions  (every action's lifecycle)
-    └── destructive-actions       (safeguards and recovery)
+    └── interface-states          (every state of each surface)
+          └── async-interactions  (every action's lifecycle)
 ```
 
-Each skill works on its own. Their outputs use shared vocabulary (state matrix, action spec, error kinds), so the output of one skill can feed straight into the next. Gaps outside these four (focus, copy, mobile layout) get a concrete fix in the `feature-completeness` scorecard rather than a separate skill.
+Each skill works on its own. Their outputs use shared vocabulary (state matrix, action spec, error kinds), so the output of one skill can feed straight into the next. Gaps outside these three (focus, copy, mobile layout, unguarded deletes) get a concrete fix in the `feature-completeness` scorecard rather than a separate skill.
 
 ## Install
 
@@ -88,7 +88,7 @@ Ask for the outcome. The skill descriptions are written so agents load the right
 - "What states does this dashboard need?" → `interface-states`
 - "Users are creating duplicate orders" → `async-interactions`
 
-You can also name a skill directly: "Use destructive-actions on the project settings page."
+You can also name a skill directly: "Use interface-states on the billing page."
 
 ## Worked examples
 
