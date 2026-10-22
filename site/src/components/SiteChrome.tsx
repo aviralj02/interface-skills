@@ -1,18 +1,26 @@
 import { ArrowUpRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
+import { useEffect, useState, type MouseEvent } from 'react'
+import { Link, useLocation } from 'react-router'
 import { AUTHOR, REPO_URL } from '../content/site'
 import { GithubMark } from './GithubMark'
 
-/** Two of the four tiles are faded "gaps"; hovering the mark fills them in. */
+/** A sun on the horizon line; on hover it rises clear of it. */
 export function Logo({ size = 20 }: { size?: number }) {
-  const gap = 'fill-ink opacity-30 transition-opacity duration-300 ease-out-expo group-hover/logo:opacity-100 motion-reduce:transition-none'
   return (
-    <svg aria-hidden viewBox="0 0 32 32" width={size} height={size} className="shrink-0">
-      <rect x="3" y="3" width="11" height="11" rx="2.5" className="fill-ink" />
-      <rect x="18" y="3" width="11" height="11" rx="2.5" className={gap} />
-      <rect x="3" y="18" width="11" height="11" rx="2.5" className={`${gap} group-hover/logo:delay-75`} />
-      <rect x="18" y="18" width="11" height="11" rx="2.5" className="fill-accent" />
+    <svg aria-hidden viewBox="0 0 32 32" width={size} height={size} className="shrink-0 overflow-visible">
+      <defs>
+        <clipPath id="logo-horizon">
+          <rect x="0" y="0" width="32" height="20" />
+        </clipPath>
+      </defs>
+      <circle
+        cx="16"
+        cy="20"
+        r="9"
+        clipPath="url(#logo-horizon)"
+        className="fill-accent transition-transform duration-500 ease-out-expo group-hover/logo:-translate-y-[3px] motion-reduce:transition-none"
+      />
+      <rect x="3" y="21.5" width="26" height="2" rx="1" className="fill-ink" />
     </svg>
   )
 }
@@ -35,12 +43,31 @@ function useScrolled(offset = 4) {
   return scrolled
 }
 
-export function SiteHeader() {
+/** On the home page, glide to the skills index instead of jumping (and still work when the hash is already set). */
+function useScrollToSkills() {
+  const { pathname } = useLocation()
+  return (e: MouseEvent) => {
+    if (pathname !== '/') return
+    const target = document.getElementById('skills')
+    if (!target) return
+    e.preventDefault()
+    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
+    history.replaceState(history.state, '', '/#skills')
+  }
+}
+
+export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   const scrolled = useScrolled()
+  const toSkills = useScrollToSkills()
+  // Over the hero photograph the header is clear and keeps dark ink in both color schemes.
+  const clear = overlay && !scrolled
   return (
     <header
-      className={`sticky top-0 z-20 border-b bg-paper/85 backdrop-blur-md transition-colors duration-300 supports-[not(backdrop-filter:blur(0))]:bg-paper ${
-        scrolled ? 'border-line' : 'border-transparent'
+      className={`sticky top-0 z-20 border-b transition-[background-color,border-color] duration-300 ${
+        clear
+          ? 'border-transparent bg-transparent [--color-ink:#17140f] [--color-ink-2:#3d3324]'
+          : `bg-paper/85 backdrop-blur-md supports-[not(backdrop-filter:blur(0))]:bg-paper ${scrolled ? 'border-line' : 'border-transparent'}`
       }`}
     >
       <a
@@ -55,7 +82,7 @@ export function SiteHeader() {
           Interface Skills
         </Link>
         <nav aria-label="Primary" className="flex items-center gap-1 text-[0.875rem]">
-          <Link to="/#skills" className="rounded-md px-2.5 py-1.5 text-ink-2 transition-colors hover:text-ink">
+          <Link to="/#skills" onClick={toSkills} className="rounded-md px-2.5 py-1.5 text-ink-2 transition-colors hover:text-ink">
             <span className="link-draw">Skills</span>
           </Link>
           <a href={REPO_URL} className="group flex items-center gap-2 rounded-md px-2.5 py-1.5 text-ink-2 transition-colors hover:text-ink">
@@ -68,56 +95,45 @@ export function SiteHeader() {
   )
 }
 
+const FOOTER_LINKS = [
+  { href: REPO_URL, label: 'Source' },
+  { href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, label: 'Contribute' },
+  { href: `${REPO_URL}/issues`, label: 'Issues' },
+]
+
 export function SiteFooter() {
   const year = 2026
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto max-w-[76rem] px-5 sm:px-8">
-        <div className="flex flex-col gap-6 py-10 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <Link to="/" className="group/logo inline-flex items-center gap-2.5 rounded-md text-[0.9375rem] font-semibold tracking-[-0.01em] text-ink">
-              <Logo />
-              Interface Skills
-            </Link>
-            <p className="mt-2 max-w-[34ch] text-[0.875rem] leading-relaxed text-ink-3">
-              Agent skills for how interfaces behave, past the happy path.
-            </p>
-          </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2 text-[0.875rem] text-ink-2">
-            {[
-              { href: REPO_URL, label: 'Source' },
-              { href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, label: 'Contribute' },
-              { href: `${REPO_URL}/issues`, label: 'Report an issue' },
-            ].map((l) => (
-              <a key={l.label} href={l.href} className="group inline-flex items-center gap-1 transition-colors hover:text-ink">
-                <span className="link-draw">{l.label}</span>
-                <ArrowUpRight
-                  aria-hidden
-                  size={13}
-                  strokeWidth={1.75}
-                  className="text-ink-3 transition-transform duration-300 ease-out-expo group-hover:translate-x-px group-hover:-translate-y-px motion-reduce:transition-none"
-                />
-              </a>
-            ))}
-          </nav>
-        </div>
-        <div className="flex flex-col gap-2 border-t border-line py-6 text-[0.8125rem] text-ink-3 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            Designed and engineered by{' '}
+      <div className="mx-auto flex max-w-[76rem] flex-col gap-x-10 gap-y-4 px-5 py-8 text-[0.8125rem] text-ink-3 sm:px-8 md:flex-row md:items-center md:justify-between">
+        <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+          <Link to="/" className="group/logo inline-flex items-center gap-2 rounded-md text-[0.875rem] font-semibold tracking-[-0.01em] text-ink">
+            <Logo size={18} />
+            Interface Skills
+          </Link>
+          <span>
+            by{' '}
             <a href={AUTHOR.site} className="link-draw font-medium text-ink-2 hover:text-ink">
               {AUTHOR.name}
             </a>
-            <span aria-hidden className="mx-2 text-line-strong">
-              /
-            </span>
-            <a href={AUTHOR.url} className="link-draw hover:text-ink-2">
-              @aviralj02
+          </span>
+        </p>
+        <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-ink-2">
+          {FOOTER_LINKS.map((l) => (
+            <a key={l.label} href={l.href} className="group inline-flex items-center gap-1 transition-colors hover:text-ink">
+              <span className="link-draw">{l.label}</span>
+              <ArrowUpRight
+                aria-hidden
+                size={12}
+                strokeWidth={1.75}
+                className="text-ink-3 transition-transform duration-300 ease-out-expo group-hover:translate-x-px group-hover:-translate-y-px motion-reduce:transition-none"
+              />
             </a>
-          </p>
-          <p>
-            Set in Schibsted Grotesk and JetBrains Mono. © {year}, MIT licensed.
-          </p>
-        </div>
+          ))}
+        </nav>
+        <p>
+          © {year} · MIT licensed
+        </p>
       </div>
     </footer>
   )

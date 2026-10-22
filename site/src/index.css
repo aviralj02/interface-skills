@@ -6,44 +6,45 @@
   --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  --color-paper: #fcfcfb;
+  /* Stone ground, near-black ink, hairlines, and one dawn-amber accent taken from the hero photograph. */
+  --color-paper: #f6f5f2;
   --color-surface: #ffffff;
-  --color-well: #f2f3f4;
-  --color-ink: #111315;
-  --color-ink-2: #4c5258;
-  --color-ink-3: #686e75;
-  --color-line: #e4e6e9;
-  --color-line-strong: #cfd3d7;
-  --color-accent: #2f5fe0;
+  --color-well: #eeede8;
+  --color-ink: #17150f;
+  --color-ink-2: #4b4840;
+  --color-ink-3: #6c685e;
+  --color-line: #e2e0d9;
+  --color-line-strong: #c9c6bc;
+  --color-accent: #9a5f17;
   --color-accent-ink: #ffffff;
-  --color-accent-soft: #eaf0ff;
+  --color-accent-soft: #f4e8d5;
   --color-danger: #b8321f;
   --color-danger-soft: #fdeeeb;
   --color-warn: #975800;
   --color-warn-soft: #fdf3e2;
-  --color-ok: #1d7446;
+  --color-ok: #2f6b3f;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-paper: #0e1012;
-    --color-surface: #1a1d21;
-    --color-well: #141619;
-    --color-ink: #eceef0;
-    --color-ink-2: #adb3b9;
-    --color-ink-3: #8b9299;
-    --color-line: #24282c;
-    --color-line-strong: #343a40;
-    --color-accent: #86a4ff;
-    --color-accent-ink: #0b1020;
-    --color-accent-soft: #19223b;
+    --color-paper: #11100d;
+    --color-surface: #1a1915;
+    --color-well: #151410;
+    --color-ink: #efede6;
+    --color-ink-2: #b7b3a8;
+    --color-ink-3: #918d82;
+    --color-line: #27251f;
+    --color-line-strong: #38352d;
+    --color-accent: #e7b46b;
+    --color-accent-ink: #1a1206;
+    --color-accent-soft: #2b2215;
     --color-danger: #ff8a78;
     --color-danger-soft: #2a1614;
     --color-warn: #f0b653;
     --color-warn-soft: #2a2010;
-    --color-ok: #62d49c;
+    --color-ok: #8fd19e;
   }
 }
 
@@ -96,80 +97,37 @@
 }
 
 @layer components {
-  /* Specimen sheet: the Happy path / Every state switch is the page's one authored motion. */
-  .specimen-layer {
-    transition:
-      opacity 520ms var(--ease-out-expo),
-      filter 520ms var(--ease-out-expo),
-      transform 520ms var(--ease-out-expo);
+  /* Hero photograph: it settles from a slight zoom as it loads. This is the page's one authored entrance. */
+  .dawn-photo {
+    animation: dawn-settle 2600ms var(--ease-out-expo) both;
   }
-  .specimen-layer[data-shown='false'] {
-    opacity: 0;
-    filter: blur(6px);
-    transform: scale(0.97);
-    pointer-events: none;
-  }
-  .tile[data-shown='false'] .state-label {
-    color: var(--color-ink-3);
-    text-decoration: line-through;
-    text-decoration-color: var(--color-line-strong);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .specimen-layer {
-      transition: opacity 150ms linear;
+  @keyframes dawn-settle {
+    from {
+      scale: 1.07;
+      filter: brightness(1.08) saturate(0.85);
     }
-    .specimen-layer[data-shown='false'] {
-      filter: none;
+  }
+
+  /* Hero headline: the last word skips, once after the photograph settles and again on hover. */
+  .skip-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .skip-letter {
+    display: inline-block;
+    animation: skip 720ms var(--ease-out-expo) both;
+  }
+  @keyframes skip {
+    0%,
+    100% {
       transform: none;
     }
-  }
-  /* No JavaScript, or reduced motion before the effect runs: show every state. */
-  html:not([data-js]) .specimens .layer-real,
-  html:not([data-js]) .specimens .tile .state-label {
-    opacity: 1;
-    filter: none;
-    transform: none;
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-  html:not([data-js]) .specimens .layer-unhandled {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .specimens[data-autoplay='pending'] .layer-real {
-      opacity: 1;
+    35% {
+      transform: translateY(-0.14em) rotate(-3deg);
     }
-    .specimens[data-autoplay='pending'] .layer-unhandled {
-      opacity: 0;
+    62% {
+      transform: translateY(0.02em);
     }
-  }
-  @media (hover: hover) {
-    .sheet:has(.tile:is(:hover, :focus-within)) .tile:not(:is(:hover, :focus-within)) {
-      opacity: 0.45;
-      filter: saturate(0.4);
-    }
-    /* In Happy path view, hovering a gap previews the state the skill would design. */
-    .tile[data-shown='false']:is(:hover, :focus-within) .layer-real {
-      opacity: 1;
-      filter: none;
-      transform: none;
-      transition-delay: 0ms !important;
-    }
-    .tile[data-shown='false']:is(:hover, :focus-within) .layer-unhandled {
-      opacity: 0;
-      filter: blur(6px);
-      transform: scale(0.97);
-      transition-delay: 0ms !important;
-    }
-    .tile[data-shown='false']:is(:hover, :focus-within) .state-label {
-      color: var(--color-ink);
-      text-decoration-color: transparent;
-    }
-  }
-  .state-label {
-    transition:
-      color 200ms ease,
-      text-decoration-color 200ms ease;
   }
 
   /* Copy icon: the two sheets fold away and a tick draws itself in their place, then reverses. */
@@ -200,6 +158,23 @@
     stroke-dashoffset: 0;
     transition-delay: 90ms;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .dawn-photo {
+      animation: none;
+    }
+    .copy-icon > * {
+      transition: opacity 150ms linear;
+    }
+    .skip-letter {
+      animation: none;
+    }
+    .copy-icon[data-done='true'] .copy-icon-back,
+    .copy-icon[data-done='true'] .copy-icon-front {
+      translate: none;
+      scale: none;
+    }
+  }
+
   /* Install block: switching tabs morphs the panel. Its height glides to the new content while the
      content comes into focus from a soft blur. Copying flashes a selection-colored highlight. */
   .morph-panel {
@@ -234,14 +209,6 @@
     }
     .morph-panel {
       transition: none;
-    }
-    .copy-icon > * {
-      transition: opacity 150ms linear;
-    }
-    .copy-icon[data-done='true'] .copy-icon-back,
-    .copy-icon[data-done='true'] .copy-icon-front {
-      translate: none;
-      scale: none;
     }
   }
   @keyframes fade-in {

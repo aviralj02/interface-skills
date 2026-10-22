@@ -36,7 +36,9 @@ export function RouteEffects() {
     if (hash) {
       const target = document.getElementById(decodeURIComponent(hash.slice(1)))
       if (target) {
-        target.scrollIntoView()
+        // Glide to an in-page section after navigation; a fresh page load jumps straight there.
+        const smooth = !first.current && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
         if (!first.current) {
           target.setAttribute('tabindex', '-1')
           target.focus({ preventScroll: true })

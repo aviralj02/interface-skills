@@ -18,7 +18,7 @@ const app = (
 
 console.info(
   "%cInterface Skills%c\nEvery state handled, including this console.\nSource: https://github.com/aviralj02/interface-skills\nBuilt by Aviral Jain · https://heyaviral.com",
-  "font: 600 14px ui-sans-serif, system-ui; color: #2f5fe0",
+  "font: 600 14px ui-sans-serif, system-ui; color: #9a5f17",
   "font: 12px ui-monospace, monospace; line-height: 1.6",
 );
 

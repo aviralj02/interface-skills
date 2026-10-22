@@ -1,53 +1,50 @@
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router'
-import { GROUPS, SKILLS } from '../content/skills'
+import { REPO } from '../content/site'
+import type { Skill } from '../content/skills'
+import { CopyButton } from './CopyButton'
 
-export function SkillIndex() {
+export function SkillIndex({ skills }: { skills: Skill[] }) {
   return (
-    <div className="flex flex-col gap-12">
-      {GROUPS.map((group) => {
-        const skills = SKILLS.filter((s) => s.group === group.id)
-        if (!skills.length) return null
-        const lead = group.id === 'start'
-        return (
-          <section key={group.id} aria-labelledby={`group-${group.id}`} className="grid gap-x-10 gap-y-3 lg:grid-cols-[15rem_minmax(0,1fr)]">
-            <div className="lg:pt-4">
-              <h3 id={`group-${group.id}`} className="text-[0.9375rem] font-semibold text-ink">
-                {group.title}
-              </h3>
-              <p className="mt-1 max-w-[34ch] text-[0.875rem] leading-snug text-ink-3">{group.blurb}</p>
+    <ul className="border-t border-line">
+      {skills.map((skill) => (
+        <li
+          key={skill.name}
+          className="group/row relative border-b border-line after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-px after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-700 after:ease-out-expo has-[a:focus-visible]:after:scale-x-100 hover:after:scale-x-100 motion-reduce:after:transition-none"
+        >
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-8 gap-y-3 py-7 md:grid-cols-[minmax(0,21rem)_minmax(0,1fr)_auto] md:py-9">
+            <h3 className="col-span-2 min-w-0 text-[1.5rem] leading-tight font-medium tracking-[-0.03em] text-ink sm:text-[2rem] md:col-span-1">
+              <Link
+                to={`/skills/${skill.name}`}
+                className="inline-block outline-none transition-transform duration-500 ease-out-expo group-hover/row:translate-x-2 motion-reduce:transition-none after:absolute after:inset-0"
+              >
+                {skill.name}
+              </Link>
+            </h3>
+            <div className="col-span-2 max-w-[52ch] md:col-span-1">
+              {/* Non-breaking hyphens keep compound terms like "type-to-confirm" on one line. */}
+              <p className="text-[1rem] leading-snug text-pretty text-ink-2 transition-colors duration-300 group-hover/row:text-ink">
+                {skill.summary.replace(/-/g, '\u2011')}
+              </p>
+              <p className="mt-1.5 text-[0.8125rem] text-ink-3">Produces {skill.produces.toLowerCase()}</p>
             </div>
-            <ul className="border-t border-line">
-              {skills.map((skill) => (
-                <li key={skill.name} className="border-b border-line">
-                  <Link
-                    to={`/skills/${skill.name}`}
-                    className="group relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 gap-y-1 rounded-sm py-4 transition-colors after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-px after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-500 after:ease-out-expo hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-reduce:after:transition-none sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)_auto] md:py-[1.125rem]"
-                  >
-                    <span
-                      className={`font-mono font-medium tracking-[-0.01em] text-ink transition-colors group-hover:text-accent ${
-                        lead ? 'text-[1.25rem] sm:text-[1.375rem]' : 'text-[0.9375rem]'
-                      }`}
-                    >
-                      {skill.name}
-                    </span>
-                    <span className="col-start-1 row-start-2 text-[0.9375rem] leading-snug text-ink-2 transition-colors duration-200 group-hover:text-ink sm:col-start-2 sm:row-start-1">
-                      {skill.summary}
-                      <span className="mt-0.5 block text-[0.8125rem] text-ink-3">Produces: {skill.produces}</span>
-                    </span>
-                    <ArrowRight
-                      aria-hidden
-                      size={17}
-                      strokeWidth={1.75}
-                      className="col-start-2 row-span-2 row-start-1 text-ink-3 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-accent sm:col-start-3 sm:row-span-1"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-      })}
-    </div>
+            <div className="relative z-10 col-span-2 flex items-center justify-between gap-1 md:col-span-1 md:justify-end">
+              <CopyButton
+                text={`npx skills add ${REPO} --skill ${skill.name}`}
+                label="Copy install"
+                showLabel
+                className="-ml-2 opacity-100 transition-opacity duration-300 md:ml-0 [@media(hover:hover)]:md:opacity-0 [@media(hover:hover)]:md:group-focus-within/row:opacity-100 [@media(hover:hover)]:md:group-hover/row:opacity-100"
+              />
+              <span
+                aria-hidden
+                className="grid size-10 place-items-center rounded-full border border-line text-ink-2 transition-[background-color,border-color,color] duration-300 group-hover/row:border-ink group-hover/row:bg-ink group-hover/row:text-paper"
+              >
+                <ArrowRight size={17} strokeWidth={1.5} className="transition-transform duration-500 ease-out-expo group-hover/row:-rotate-45 motion-reduce:transition-none" />
+              </span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
   )
 }
