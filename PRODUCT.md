@@ -16,7 +16,7 @@ Secondary: indie hackers, startup teams, and developers without formal UX traini
 
 ## Product Purpose
 
-Interface Skills is an open-source pack of 12 agent skills (SKILL.md files) about interface behavior: states, failures, flows, structure, content, input methods, and recovery. The website presents the pack. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
+Interface Skills is an open-source pack of 4 agent skills (SKILL.md files) about interface behavior: completeness, states, async actions, and destructive actions. The pack is deliberately small: it only covers behavior agents reliably get wrong without help. The website presents the pack. It shows every skill, lets visitors read each one in full, and gives copyable install commands for the whole pack and for each skill.
 
 Success means a visitor installs the pack, or a specific skill, with confidence in what they are getting.
 
@@ -24,7 +24,7 @@ Success means a visitor installs the pack, or a specific skill, with confidence 
 
 "UI patterns teach you how interfaces look. Interface Skills teaches you how they behave."
 
-Most existing skill collections focus on visual polish. Each skill here covers one behavioral problem and ends in a defined artifact: state matrix, action spec, focus map, completeness scorecard, and so on. The skills are designed to hand off to each other, with `feature-completeness` as the entry point.
+Most existing skill collections focus on visual polish. Each skill here covers one behavioral problem and ends in a defined artifact: completeness scorecard, state matrix, action spec, destructive action inventory. The skills are designed to hand off to each other, with `feature-completeness` as the entry point.
 
 ## Operating Context
 
@@ -37,15 +37,11 @@ Most existing skill collections focus on visual polish. Each skill here covers o
 
 ## Capabilities and Constraints
 
-- 12 skills in 6 categories:
-  - **Interface States:** interface-states, async-interactions, destructive-actions
-  - **UX Structure:** user-flows, information-architecture
-  - **Content & Communication:** ux-writing, content-resilience
-  - **Responsive & Adaptive:** responsive-behavior
-  - **Interaction Engineering:** focus-management
-  - **Product-Level:** feature-completeness, design-system-evolution, pattern-consistency
+- 4 skills in 2 groups:
+  - **Start here:** feature-completeness
+  - **States and actions:** interface-states, async-interactions, destructive-actions
 - Every skill has frontmatter (`name`, `description`) and the same nine sections: Purpose, When to Use, Core Principles, Workflow, Checklist, Common Mistakes, Example, Implementation Notes, Output Expectations.
-- 4 worked examples live in `examples/` (dashboard, tables, forms, onboarding).
+- 3 worked examples live in `examples/` (dashboard, tables, forms).
 - The home page's primary action is installing the whole pack. Individual skill pages render the full SKILL.md with per-skill install commands and a table of contents.
 - The site must never drift from the skill files. Content is read from the repo, never copied by hand.
 
@@ -56,7 +52,7 @@ Most existing skill collections focus on visual polish. Each skill here covers o
 
 ## Evidence on Hand
 
-- The 12 SKILL.md files, 4 worked examples, and README in this repo.
+- The 4 SKILL.md files, 3 worked examples, and README in this repo.
 - There are no install counts, stars, testimonials, or users to cite yet. Do not invent any.
 
 ## Product Principles

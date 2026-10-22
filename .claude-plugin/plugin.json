@@ -1,7 +1,7 @@
 {
   "name": "interface-skills",
   "version": "0.1.0",
-  "description": "Practical interface-behavior skills: states, flows, async actions, destructive actions, focus, content resilience, responsive behavior, and feature completeness.",
+  "description": "Practical interface-behavior skills: feature completeness, interface states, async actions, and destructive actions.",
   "author": {
     "name": "Aviral Jain",
     "url": "https://github.com/aviralj02"
