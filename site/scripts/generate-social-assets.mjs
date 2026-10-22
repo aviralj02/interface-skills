@@ -130,7 +130,7 @@ async function main() {
     <div style="display:flex;align-items:center;gap:56px;">
       <div style="max-width:600px;">
         <h1 style="font:600 66px/1.04 'Schibsted Grotesk Variable';letter-spacing:-0.04em;color:#111315;">Beyond the<br/>happy path.</h1>
-        <p style="margin-top:20px;font:400 22px/1.5 'Schibsted Grotesk Variable';color:#4c5258;max-width:520px;">UI patterns teach how interfaces look. These 12 agent skills teach how they behave.</p>
+        <p style="margin-top:20px;font:400 22px/1.5 'Schibsted Grotesk Variable';color:#4c5258;max-width:520px;">UI patterns teach how interfaces look. These 4 agent skills teach how they behave.</p>
         <div style="margin-top:28px;display:inline-flex;align-items:center;gap:10px;background:#111315;color:#fcfcfb;border-radius:8px;padding:12px 16px;font:400 17px 'JetBrains Mono Variable';">
           <span style="color:#9aa1a6;">$</span> npx skills add aviralj02/interface-skills
         </div>
@@ -149,7 +149,7 @@ async function main() {
       </div>
     </div>
 
-    <div style="font:400 16px 'Schibsted Grotesk Variable';color:#686e75;">skills.heyaviral.com &middot; 12 agent skills for interface behavior</div>
+    <div style="font:400 16px 'Schibsted Grotesk Variable';color:#686e75;">skills.heyaviral.com &middot; 4 agent skills for interface behavior</div>
   `
   await shoot(browser, { width: 1200, height: 630, out: join(pub, 'og-image.png'), html: ogHtml })
 
