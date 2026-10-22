@@ -1,6 +1,6 @@
 # How to design async form submission properly
 
-Skills used: `async-interactions` → `ux-writing` → `focus-management` → `user-flows`
+Skills used: `async-interactions`
 
 ## The prompt
 
@@ -28,7 +28,7 @@ Skills used: `async-interactions` → `ux-writing` → `focus-management` → `u
 - Don't show "required" errors on fields the user hasn't reached.
 - On submit, validate everything.
 
-## 3. Copy (ux-writing)
+## 3. Copy
 
 | Moment | Copy |
 |---|---|
@@ -40,7 +40,7 @@ Skills used: `async-interactions` → `ux-writing` → `focus-management` → `u
 | Server error | Something on our side stopped the project from being created. Your input is still here. **Try again** · Ref: 7F3A |
 | Submit button | Create project |
 
-## 4. Focus (focus-management)
+## 4. Focus
 
 | Event | Focus after | Announcement |
 |---|---|---|
@@ -50,7 +50,7 @@ Skills used: `async-interactions` → `ux-writing` → `focus-management` → `u
 | Network error | form-level error message (`tabindex="-1"`) | message |
 | Success | new project page `<h1>` | "Q3 plan created" |
 
-## 5. Interruptions (user-flows)
+## 5. Interruptions
 
 | Interruption | Behavior |
 |---|---|

@@ -1,6 +1,6 @@
 # The states every data table needs
 
-Skills used: `interface-states` → `content-resilience` → `destructive-actions` → `focus-management` → `responsive-behavior`
+Skills used: `interface-states` → `destructive-actions`
 
 ## The prompt
 
@@ -20,7 +20,7 @@ Skills used: `interface-states` → `content-resilience` → `destructive-action
 | 8 | Selection active | bulk bar replaces toolbar: "3 selected · Delete · Clear" | bulk actions |
 | 9 | Permission denied | no checkboxes or row actions for non-admins | — |
 
-## 2. Content (content-resilience)
+## 2. Content
 
 | Field | Max | Overflow rule |
 |---|---|---|
@@ -40,7 +40,7 @@ Severity: R2 (soft delete, 30-day restore) × B3 (users lose access).
 - Scope across pages stated explicitly when "Select all matching" is used.
 - Partial failure: "2 of 3 users removed. You can't remove the workspace owner."
 
-## 4. Focus (focus-management)
+## 4. Focus
 
 | Event | Focus after | Announcement |
 |---|---|---|
@@ -50,6 +50,6 @@ Severity: R2 (soft delete, 30-day restore) × B3 (users lose access).
 | Remove single user (row menu) | next row's name → previous → search field | "Sam removed. Undo" |
 | Bulk remove confirmed | first remaining row, or empty state action | "3 users removed" |
 
-## 5. Mobile (responsive-behavior)
+## 5. Mobile
 
 Strategy: card list (reading > comparing). Card: avatar, name, email (middle-truncated), role badge, "⋯" menu always visible. Selection via "Select" mode button, not hover checkboxes.

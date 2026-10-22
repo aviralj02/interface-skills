@@ -1,6 +1,6 @@
 # Why your dashboard feels incomplete
 
-Skills used: `feature-completeness` → `interface-states` → `async-interactions` → `responsive-behavior`
+Skills used: `feature-completeness` → `interface-states` → `async-interactions`
 
 ## The prompt
 
@@ -55,7 +55,7 @@ No region is blocking, so the page shell always renders.
 | URL | `?range=` updated so the view is shareable |
 | Failure | revert selector to previous range; inline error with retry |
 
-## 4. responsive-behavior
+## 4. Mobile layout
 
 | Element | Compact | Expanded |
 |---|---|---|
