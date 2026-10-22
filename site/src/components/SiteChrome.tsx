@@ -1,7 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
-import { useEffect, useState, type MouseEvent } from 'react'
-import { Link, useLocation } from 'react-router'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 import { AUTHOR, REPO_URL } from '../content/site'
+import { useScrollToSkills } from '../lib/useScrollToSkills'
 import { GithubMark } from './GithubMark'
 
 /** A sun on the horizon line; on hover it rises clear of it. */
@@ -41,20 +42,6 @@ function useScrolled(offset = 4) {
     }
   }, [offset])
   return scrolled
-}
-
-/** On the home page, glide to the skills index instead of jumping (and still work when the hash is already set). */
-function useScrollToSkills() {
-  const { pathname } = useLocation()
-  return (e: MouseEvent) => {
-    if (pathname !== '/') return
-    const target = document.getElementById('skills')
-    if (!target) return
-    e.preventDefault()
-    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
-    history.replaceState(history.state, '', '/#skills')
-  }
 }
 
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
