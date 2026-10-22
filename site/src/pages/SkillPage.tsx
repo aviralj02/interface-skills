@@ -4,6 +4,7 @@ import { AgentTrigger } from '../components/AgentTrigger'
 import { CopyButton } from '../components/CopyButton'
 import { InstallBlock } from '../components/InstallBlock'
 import { Markdown } from '../components/Markdown'
+import { SkillPreview } from '../components/SkillPreview'
 import { Toc } from '../components/Toc'
 import { REPO_URL, skillInstall } from '../content/site'
 import { getSkill, GROUPS, neighbors } from '../content/skills'
@@ -81,7 +82,9 @@ export function SkillPage() {
           <Toc headings={skill.headings} />
         </div>
         <article className="min-w-0 lg:col-start-1 lg:row-start-1">
-          <Markdown source={skill.body} />
+          <SkillPreview key={skill.name} lines={skill.lines}>
+            <Markdown source={skill.body} />
+          </SkillPreview>
         </article>
       </div>
 

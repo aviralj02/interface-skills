@@ -293,6 +293,59 @@
     }
   }
 
+  /* Skill page preview: the opening of the skill under a soft fade, with a control to read the rest.
+     Collapsing needs JavaScript to reopen, so it only applies once the page knows it has JS; print shows everything. */
+  .skill-preview {
+    --fold: clamp(28rem, 72vh, 40rem);
+  }
+  html[data-js] .skill-preview[data-open='false'] .skill-preview-body {
+    max-height: var(--fold);
+    overflow: clip;
+  }
+  .skill-preview-more {
+    position: absolute;
+    inset-inline: 0;
+    top: calc(var(--fold) - 13rem);
+    height: 13rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--color-paper) 0%, transparent), var(--color-paper) 78%);
+    pointer-events: none;
+    transition:
+      opacity 500ms var(--ease-out-expo),
+      visibility 0s linear 0s;
+  }
+  .skill-preview-more > * {
+    pointer-events: auto;
+  }
+  /* Opening dissolves the fade in place instead of animating the page height. */
+  .skill-preview[data-open='true'] .skill-preview-more {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 500ms var(--ease-out-expo),
+      visibility 0s linear 500ms;
+  }
+  html:not([data-js]) .skill-preview-more {
+    display: none;
+  }
+  @media print {
+    html[data-js] .skill-preview[data-open='false'] .skill-preview-body {
+      max-height: none;
+      overflow: visible;
+    }
+    .skill-preview-more {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skill-preview-more,
+    .skill-preview[data-open='true'] .skill-preview-more {
+      transition: none;
+    }
+  }
+
   /* Rendered SKILL.md */
   .doc {
     @apply text-ink-2 text-[1.0625rem] leading-[1.7];
