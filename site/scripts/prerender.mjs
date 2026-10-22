@@ -98,7 +98,7 @@ const groupSections = GROUPS.map((group) => {
 
 const llmsTxt = `# ${SITE_NAME}
 
-> Agent skills for how interfaces behave — states, failures, flows, focus, and recovery — not just how they look. ${SKILLS.length} skills, each producing a concrete artifact (a state matrix, an action spec, a focus map, and so on). Start with feature-completeness; it routes every gap it finds to the skill that fixes it.
+> Agent skills for how interfaces behave — states, failures, async actions, and recovery — not just how they look. ${SKILLS.length} skills, each producing a concrete artifact (a completeness scorecard, a state matrix, an action spec, a destructive action inventory). Start with feature-completeness; it routes every gap it finds to the skill that fixes it.
 
 Install the whole pack: \`npx skills add ${REPO_URL.replace('https://github.com/', '')}\`. Full instructions: ${SITE_URL}/
 

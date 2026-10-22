@@ -21,31 +21,19 @@ export type Skill = {
   lines: number
 }
 
-export type GroupId = 'start' | 'states' | 'structure' | 'content' | 'adapt' | 'scale'
+export type GroupId = 'start' | 'behavior'
 
 export const GROUPS: { id: GroupId; title: string; blurb: string }[] = [
   { id: 'start', title: 'Start here', blurb: 'Find what a feature is missing, then route each gap to the skill that fixes it.' },
-  { id: 'states', title: 'States and actions', blurb: 'What a surface shows, and what happens after someone acts.' },
-  { id: 'structure', title: 'Structure', blurb: 'Journeys across screens, and where things live.' },
-  { id: 'content', title: 'Content', blurb: 'Words for every state, and layouts that survive real data.' },
-  { id: 'adapt', title: 'Adaptation and input', blurb: 'Screen sizes, touch, keyboard, and screen readers.' },
-  { id: 'scale', title: 'Product scale', blurb: 'Consistency across a product, and a system grown from it.' },
+  { id: 'behavior', title: 'States and actions', blurb: 'What a surface shows, what happens after someone acts, and how they undo it.' },
 ]
 
 // Curation only: grouping, order, and a one-line summary for the index.
 const CATALOG: { name: string; group: GroupId; summary: string; produces: string }[] = [
   { name: 'feature-completeness', group: 'start', summary: 'Scores a feature across eight paths and ranks every gap by harm.', produces: 'Completeness scorecard' },
-  { name: 'interface-states', group: 'states', summary: 'Every state a surface can be in, with UI and a next action for each.', produces: 'State matrix' },
-  { name: 'async-interactions', group: 'states', summary: 'Pending feedback, races, retries, optimistic updates, background jobs.', produces: 'Action spec' },
-  { name: 'destructive-actions', group: 'states', summary: 'Safeguards matched to risk: undo, trash, confirm, type-to-confirm.', produces: 'Destructive action inventory' },
-  { name: 'user-flows', group: 'structure', summary: 'Entry points, failure branches, interruptions, and returning users.', produces: 'Flow + interruption tables' },
-  { name: 'information-architecture', group: 'structure', summary: 'Page, modal, drawer, or tab, decided from objects and tasks.', produces: 'Placement decisions' },
-  { name: 'ux-writing', group: 'content', summary: 'Errors, empty states, and confirmations that say what to do next.', produces: 'Copy deck + glossary' },
-  { name: 'content-resilience', group: 'content', summary: 'Long names, missing images, huge numbers, translations, 0 to 10,000 items.', produces: 'Content contract + fixtures' },
-  { name: 'responsive-behavior', group: 'adapt', summary: 'What each component becomes at each size and input type.', produces: 'Transformation matrix' },
-  { name: 'focus-management', group: 'adapt', summary: 'Where focus goes after every open, close, delete, and route change.', produces: 'Focus map' },
-  { name: 'pattern-consistency', group: 'scale', summary: 'Finds behavior that differs across the product and picks the rule.', produces: 'Canonical rules + migration' },
-  { name: 'design-system-evolution', group: 'scale', summary: 'What to abstract from real code, and what to leave alone.', produces: 'Extraction report' },
+  { name: 'interface-states', group: 'behavior', summary: 'Every state a surface can be in, with UI and a next action for each.', produces: 'State matrix' },
+  { name: 'async-interactions', group: 'behavior', summary: 'Pending feedback, races, retries, optimistic updates, background jobs.', produces: 'Action spec' },
+  { name: 'destructive-actions', group: 'behavior', summary: 'Safeguards matched to risk: undo, trash, confirm, type-to-confirm.', produces: 'Destructive action inventory' },
 ]
 
 function parse(raw: string) {
@@ -91,7 +79,7 @@ export const SKILLS: Skill[] = CATALOG.flatMap((entry) => {
 // Skills present in the repo but missing from the catalog still get a page.
 for (const [name, p] of parsed) {
   if (!SKILLS.some((s) => s.name === name)) {
-    SKILLS.push({ ...p, name, group: 'scale', summary: p.description.split('. ')[0], produces: 'See skill', headings: extractHeadings(p.body) })
+    SKILLS.push({ ...p, name, group: 'behavior', summary: p.description.split('. ')[0], produces: 'See skill', headings: extractHeadings(p.body) })
   }
 }
 

@@ -50,10 +50,10 @@ export function Home() {
         <div className={`${wrap} py-20 lg:py-28`}>
           <div className="mb-14 max-w-[40rem]">
             <h2 id="skills-heading" className="text-[1.875rem] leading-tight font-semibold tracking-[-0.025em] text-balance text-ink sm:text-[2.25rem]">
-              Twelve skills, one job each
+              Four skills, one job each
             </h2>
             <p className="mt-3 text-[1.0625rem] leading-relaxed text-ink-2">
-              Every skill solves one behavioral problem and produces something concrete: a matrix, a spec, a map, a report. Open any of them to read
+              Every skill solves one behavioral problem and produces something concrete: a scorecard, a matrix, a spec, an inventory. Open any of them to read
               it in full before you install.
             </p>
           </div>

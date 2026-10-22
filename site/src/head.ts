@@ -1,7 +1,7 @@
 import { AUTHOR, REPO_URL, SITE_NAME, SITE_URL } from './content/site'
 import { getSkill, GROUPS, SKILLS } from './content/skills'
 
-const HOME_DESCRIPTION = `${SKILLS.length} agent skills for how interfaces behave: states, failures, flows, focus, and recovery — not just how they look. Each skill produces a concrete artifact. Install with npx skills or as a Claude Code plugin.`
+const HOME_DESCRIPTION = `${SKILLS.length} agent skills for how interfaces behave: states, failures, async actions, and recovery — not just how they look. Each skill produces a concrete artifact. Install with npx skills or as a Claude Code plugin.`
 
 const PERSON = { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.site, sameAs: [AUTHOR.url] } as const
 
